@@ -136,3 +136,19 @@ animation: my-animation 10s linear infinite;
     transform: translateY(200%);
   }
 }
+
+.autoplay-video {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.scroll-text-1,
+.scroll-text-2,
+.scroll-text-3 {
+  will-change: transform;
+}
+
+#scroll-container {
+  contain: layout paint;
+}

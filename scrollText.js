@@ -1,47 +1,82 @@
-binaryFall()
+binaryFall();
+setupVisibleVideos();
 
 function binaryFall()
 {
+    const scrollContainer = document.getElementById('scroll-container');
 
-  let divIdHeader = "dynamicDiv"
-  let divName = ""
+    for (let i = 0; i < 80; i++) {
 
-  for (let i = 0; i < 500; i++) {
-    divName = divIdHeader.concat(i)
-    var elemDiv = document.createElement('div');
-    elemDiv.className = "scroll-text-" + (getRandomInt(3) + 1)
-    elemDiv.innerHTML = createText()
+        const elemDiv = document.createElement('div');
 
-    let randRight = getRandomInt(100) + 1
-    let randBottom = getRandomInt(100) + 1
+        elemDiv.className = "scroll-text-" + (getRandomInt(3) + 1);
 
-    elemDiv.style.cssText = 'position:absolute;right:' + randRight +'%;bottom:' + randBottom + '%;opacity:1.0;z-index:100;'
+        elemDiv.innerHTML = createText();
 
-    document.getElementById('scroll-container').appendChild(elemDiv);
-  } 
+        const randRight = getRandomInt(100) + 1;
+        const randBottom = getRandomInt(100) + 1;
+
+        elemDiv.style.position = 'absolute';
+        elemDiv.style.right = randRight + '%';
+        elemDiv.style.bottom = randBottom + '%';
+        elemDiv.style.opacity = '1.0';
+        elemDiv.style.zIndex = '100';
+
+        scrollContainer.appendChild(elemDiv);
+    }
+}
+
+function setupVisibleVideos()
+{
+    const videos = document.querySelectorAll('.autoplay-video');
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            const video = entry.target;
+
+            if (entry.isIntersecting) {
+
+                video.play().catch(() => {});
+
+            } else {
+
+                video.pause();
+            }
+        });
+
+    }, {
+        threshold: 0.25
+    });
+
+    videos.forEach(video => {
+        observer.observe(video);
+    });
 }
 
 function createText()
 {
-  let contentString = createContent()
-  let chars = contentString.split("")
-  let returnString = chars.join('<br>');
-  return returnString
+    const contentString = createContent();
+
+    return contentString.split("").join('<br>');
 }
 
 function createContent()
 {
-    let myString = ""
-    let length = getRandomInt(10)
+    let myString = "";
+
+    const length = getRandomInt(10) + 5;
 
     for (let i = 0; i < length; i++) {
-        let randomValue = getRandomInt(2)
-        myString = myString.concat(randomValue)
-      } 
 
-    return myString 
+        myString += getRandomInt(2);
+    }
+
+    return myString;
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+function getRandomInt(max)
+{
+    return Math.floor(Math.random() * max);
 }
