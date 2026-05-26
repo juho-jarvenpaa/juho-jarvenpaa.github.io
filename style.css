@@ -138,8 +138,8 @@ animation: my-animation 10s linear infinite;
 }
 
 .autoplay-video {
-  width: 200px;
-  height: 200px;
+  width: 256px;
+  height: 144px;
   object-fit: cover;
 }
 
